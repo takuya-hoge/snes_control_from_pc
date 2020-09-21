@@ -1,10 +1,26 @@
 # snes_control_from_pc
-SNES control from pc.
+SNES control from pc.  
 
-circuit_snes       : ƒRƒ“ƒgƒ[ƒ‰[æ‚Áæ‚è—p‰ñ˜H}
-ClassLibraryForPC  : Windows—pƒeƒXƒgƒvƒƒOƒ‰ƒ€
-sketch_snes        : arduino nano—p‚ÌƒeƒXƒgƒvƒƒOƒ‰ƒ€
+amazonã§å®‰ãå£²ã£ã¦ã„ã‚‹arduino nano ã‚’ä½¿ç”¨ã—ã€PCã‹ã‚‰æ‰‹è»½ã«ã‚¹ãƒ¼ãƒ‘ãƒ¼ãƒ•ã‚¡ãƒŸã‚³ãƒ³æ“ä½œã™ã‚‹ã“ã¨ã‚’ç›®æ¨™ã«ä½œã£ã¦ã„ã¾ã™ã€‚  
 
+circuit_snes       : ã‚³ãƒ³ãƒˆãƒ­ãƒ¼ãƒ©ãƒ¼ä¹—ã£å–ã‚Šç”¨å›è·¯å›³  
+ClassLibraryForPC  : Windowsç”¨ãƒ†ã‚¹ãƒˆãƒ—ãƒ­ã‚°ãƒ©ãƒ (visual studio)  
+sketch_snes        : arduino nanoç”¨ã®ãƒ†ã‚¹ãƒˆãƒ—ãƒ­ã‚°ãƒ©ãƒ   
+  
+  
+## ãƒ†ã‚¹ãƒˆãƒ—ãƒ­ã‚°ãƒ©ãƒ ã®å‹•ä½œ  
 
-¡ ƒeƒXƒgƒvƒƒOƒ‰ƒ€‚Ì“®ì
-https://youtu.be/H7-xR-DRq8Y
+ãƒ†ã‚¹ãƒˆãƒ—ãƒ­ã‚°ãƒ©ãƒ å‹•ä½œã®æ§˜å­  
+https://youtu.be/H7-xR-DRq8Y  
+  
+  
+## å›è·¯å›³  
+
+![å›è·¯å›³](circuit_snes/circuit_snes.png)  
+  
+  
+## å®Ÿè£…ä¾‹  
+
+![å›è·¯å›³](circuit_snes/example.jpg)  
+  
+  
