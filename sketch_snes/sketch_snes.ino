@@ -40,7 +40,12 @@
 #define BTN_L_OFF       23
 #define BTN_R_OFF       24
 
+// BTN ALL OFF
+#define BTN_ALL_OFF     80
 
+// Hadoken : Max BTM is 100
+// [0]:90 [1]:length [2]:BTN [3]:wait(ms) [4]:BTN [5]:wait(ms) ...
+#define HADOKEN         90
 
 void setup() {
   // put your setup code here, to run once:
@@ -56,26 +61,29 @@ void setup() {
   pinMode(PIN_L, OUTPUT);
   pinMode(PIN_R, OUTPUT);
 
-  digitalWrite(PIN_Y, HIGH);
-  digitalWrite(PIN_SELECT, HIGH);
-  digitalWrite(PIN_START, HIGH);
-  digitalWrite(PIN_UP, HIGH);
-  digitalWrite(PIN_DOWN, HIGH);
-  digitalWrite(PIN_LEFT, HIGH);
-  digitalWrite(PIN_RIGHT, HIGH);
-  digitalWrite(PIN_A, HIGH);
-  digitalWrite(PIN_X, HIGH);
-  digitalWrite(PIN_L, HIGH);
-  digitalWrite(PIN_R, HIGH);
+  bnt_off();
 
   Serial.begin(9600);
   Serial.print("Hello\n");
 }
-
+// global data
+int tmp_read;  // only one
 
 void loop() {
   // put your main code here, to run repeatedly:
-  switch(Serial.read()){
+  tmp_read = Serial.read();
+  if (-1 == tmp_read) {
+    // data unavailable
+  } else if (HADOKEN == tmp_read) {
+    hadoken();
+  } else {
+    btn_control(tmp_read);
+  }
+}
+
+void btn_control(unsigned char data)
+{
+  switch (data) {
     case BTN_B_ON:
       digitalWrite(PIN_B, LOW);
       break;
@@ -148,11 +156,68 @@ void loop() {
     case BTN_R_OFF:
       digitalWrite(PIN_R, HIGH);
       break;
-
-      
+    case BTN_ALL_OFF:
+            bnt_off();
+      break;
     default:
       break;
   }
+}
+
+void hadoken()
+{
+  unsigned char length;
+  unsigned char data[255];
+  unsigned char seek = 0;
+
+  // get length
+  while (1)
+  {
+    tmp_read = Serial.read();
+    if (-1 != tmp_read)
+    {
+      length = tmp_read;
+      break;
+    }
+  }
+
+  // get data
+  while (1)
+  {
+    tmp_read = Serial.read();
+    if (-1 != tmp_read)
+    {
+      data[seek] = tmp_read;
+      seek++;
+      if (seek == length) {
+        break;
+      }
+    }
+  }
+
+  // put BTN
+  for (seek = 0;seek <= length; seek += 2) {
+    btn_control(data[seek]);
+    delay(data[seek + 1]);
+  }
+
+  // send end signal;
+  Serial.write('E');
+}
+
+void bnt_off(){
+  digitalWrite(PIN_Y, HIGH);
+  digitalWrite(PIN_SELECT, HIGH);
+  digitalWrite(PIN_START, HIGH);
+  digitalWrite(PIN_UP, HIGH);
+  digitalWrite(PIN_DOWN, HIGH);
+  digitalWrite(PIN_LEFT, HIGH);
+  digitalWrite(PIN_RIGHT, HIGH);
+  digitalWrite(PIN_A, HIGH);
+  digitalWrite(PIN_B, HIGH);
+  digitalWrite(PIN_X, HIGH);
+  digitalWrite(PIN_L, HIGH);
+  digitalWrite(PIN_R, HIGH);
 }
 
 void test()
@@ -162,10 +227,10 @@ void test()
   digitalWrite(2, LOW);
   delay(10);
 
-   digitalWrite(PIN_A, HIGH);
+  digitalWrite(PIN_A, HIGH);
   delay(50);
   digitalWrite(PIN_A, LOW);
-  
+
   digitalWrite(PIN_LEFT, LOW);
   delay(400);
   digitalWrite(PIN_LEFT, HIGH);

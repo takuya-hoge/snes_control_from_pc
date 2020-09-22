@@ -55,11 +55,12 @@ namespace snesControlFromPc
         public const byte BTN_UP_OFF = 17;
         public const byte BTN_DOWN_OFF = 18;
         public const byte BTN_LEFT_OFF = 19;
-        public const byte BTN_RIGHT_ = 20;
+        public const byte BTN_RIGHT_OFF = 20;
         public const byte BTN_A_OFF = 21;
         public const byte BTN_X_OFF = 22;
         public const byte BTN_L_OFF = 23;
         public const byte BTN_R_OFF = 24;
+        public const byte BTN_ALL_OFF = 80;
 
         public void send(byte input)
         {
@@ -69,5 +70,13 @@ namespace snesControlFromPc
             serialPort.Write(data, 1, 1); // OFF
         }
 
+        public void hadoken(byte[] input)
+        {
+            int read_tmp;
+
+            serialPort.Write(input, 0, input.Length);
+            read_tmp = serialPort.ReadByte();
+            // Console.WriteLine(read_tmp);
+        }
     }
 }
